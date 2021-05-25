@@ -98,11 +98,11 @@ import anime from 'animejs/lib/anime.es.js';
 import { onMounted } from 'vue'
 
 ref: banner = {
-      texts: ["信息", "发展", "潮流", "信心", "合作", "效率", "和谐", "交流", "学习", "进步"],
-      text: "ITI",
-      bgHeight: 0,
-      showTip: false
-    } 
+  texts: ["信息", "发展", "潮流", "信心", "合作", "效率", "和谐", "交流", "学习", "进步"],
+  text: "ITI",
+  bgHeight: 0,
+  showTip: false
+} 
 ref: open = []
 let itemRefs = []
 const setItemRef = el => {
@@ -110,7 +110,6 @@ const setItemRef = el => {
     itemRefs.push(el)
   }
 }
-
 
 onMounted(()=> {
   // console.log(random)
@@ -151,8 +150,9 @@ async function start() {
 }
 start()
 </script>
+
 <style scoped>
-  #banner {
+#banner {
   color: white;
   text-align: center;
   background: rgb(50, 54, 57);
