@@ -2,9 +2,8 @@
 	<div id="app">
     <div id="banner" class="fullscreen">
       <div class="background" :style="{height: banner.bgHeight}">&nbsp;</div>
-      <!-- class="anime" v-for="(item, index) in banner.texts" -->
-      <div class="anime" :ref="setItemRef" v-for="(item, index) in banner.texts" style="display:none; width: 100px; position:absolute;">{{ item }}</div>
-      <h1 v-cloak>{{banner.text}}</h1>
+      <div class="words" v-for="index in wordsNum" :class="index" :style="wordsStyle()">{{ pickItem() }}</div>
+      <h1 id="future" style="opacity: 0;">未来</h1>
       <transition name="fade">
         <div class="tip" v-if="banner.showTip">
           <div>由此展开</div>
@@ -98,60 +97,72 @@ import anime from 'animejs/lib/anime.es.js';
 import { onMounted } from 'vue'
 
 ref: banner = {
-  texts: ["信息", "发展", "潮流", "信心", "合作", "效率", "和谐", "交流", "学习", "进步"],
-  text: "ITI",
+  texts: ['信息', '发展', '潮流', '信心', '合作', '效率', '和谐', '交流', '学习', '进步', '科技', '前沿', '创新', '实践', '教育', '研发', '探索', '好奇', '严谨', '价值'],
   bgHeight: 0,
   showTip: false
 } 
 ref: open = []
-let itemRefs = []
-const setItemRef = el => {
-  if (el) {
-    itemRefs.push(el)
+ref: item = null
+ref: wordsNum = Math.floor(window.innerHeight * window.innerWidth / 3e4)
+console.log(wordsNum)
+
+
+const pickItem = () => banner.texts[Math.round(Math.random() * banner.texts.length)]
+
+
+function wordsStyle () {
+  return {
+    left: Math.random()*100 + '%',
+    top: Math.random()*100 + '%'
   }
 }
 
-onMounted(()=> {
-  // console.log(random)
-  itemRefs.forEach(r => {
-      r.style.left = Math.random() * (window.innerWidth - r.clientWidth) + 'px'
-      r.style.top = Math.random() * (window.innerHeight - r.clientHeight) + 'px'
-    })
-})
-
 function sleep(time) { // ms
-  return new Promise((resolve) => setTimeout(resolve, time));
+  return new Promise((resolve) => setTimeout(resolve, time))
 }
 async function start() {
-  await sleep( 1000);
-  banner.text = ""
+  await sleep(500)
+  banner.text = ''
 
-  await anime({
-    targets: '.anime',
-    direction: 'alternate',
-    scale: {
-      value: [0, 6],
-      duration: 200,
-      delay: function(el, i, l) {
-        el.style.display = 'block';
-        return (l-i) * 200;
-      },
-      easing: 'linear',
-    },
-  }) 
+  anime({
+    targets: '.words',
+    easing: 'easeOutExpo',
+    duration: 5000,  
+    keyframes: [
+      { opacity: 1, scale: 1.2 },
+      { scale: 1.5, opacity: 0 }
+    ],
+    delay: anime.stagger(2500/wordsNum)
+  })
   
-  await sleep(6000);
-  banner.text = "未来";
-  await sleep(500);
-  banner.bgHeight = "100vh";
-  await sleep(1100);
-  banner.showTip = true;
+  await sleep(3000)
+  anime({
+    targets: '#future',
+    duration: 2000,
+    opacity: 1,
+    scale: 1.7
+  })
+  await sleep(4000)
+  banner.bgHeight = "100vh"
+  await sleep(1100)
+  banner.showTip = true
 
 }
 start()
 </script>
 
 <style scoped>
+div {
+  overflow-x: hidden;
+}
+
+.words {
+  width: 100px;
+  position: absolute;
+  color: #BDBDBD;
+  opacity: 0;
+}
+
 #banner {
   color: white;
   text-align: center;
@@ -169,11 +180,11 @@ start()
 
 #banner h1 {
   position: relative;
-  z-index: 2;
+  z-index: 100;
   line-height: 100vh;
   margin: 0;
   padding: 0;
-  font-size: 10rem;
+  font-size: 7rem;
 }
 
 #banner div.tip {
@@ -400,79 +411,4 @@ start()
 #app {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
 }
-
-[v-cloak] {
-  opacity: 0;
-}
-
-/* Following are common class */
-div.row {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-div.col {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.fullscreen {
-  width: 100%;
-  height: 100vh;
-}
-
-.transparent {
-  opacity: 0.6;
-  transition: all 0.5s ease;
-}
-
-.transparent:hover {
-  opacity: 0.9;
-}
-
-a.button {
-  padding: 15px;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: bold;
-  color: inherit;
-}
-
-img.logo {
-  position: absolute;
-  z-index: 10000;
-  max-width: 33vw;
-  width: 150px;
-  left: 10px;
-  top: 10px;
-}
-
-/* Following are transitions */
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity .5s;
-}
-
-.fade-enter,
-.fade-leave-to {
-  opacity: 0;
-}
-
-.slide-fade-enter-active {
-  transition: all .5s ease;
-}
-
-.slide-fade-leave-active {
-  transition: all .5s cubic-bezier(1.0, 0.5, 0.8, 1.0);
-}
-
-.slide-fade-enter,
-.slide-fade-leave-to {
-  transform: translateY(10px);
-  opacity: 0;
-}
-
 </style>
