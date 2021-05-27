@@ -39,7 +39,7 @@
             <h2>工程维护</h2>
           </div>
           <div class="col transparent">
-            <img class="icon" src="util/design.svg">
+            <img class="icon" src="/util/design.svg">
             <h2>美工设计</h2>
           </div>
           <div class="col transparent">
