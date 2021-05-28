@@ -1,163 +1,156 @@
 <template>
-	<div id="app">
-    <div id="banner" class="fullscreen">
-      <div class="background" :style="{height: banner.bgHeight}">&nbsp;</div>
-      <div class="words" v-for="index in wordsNum" :class="index" :style="wordsStyle()">{{ pickItem() }}</div>
-      <h1 id="future" style="opacity: 0;">未来</h1>
-      <transition name="fade">
-        <div class="tip" v-if="banner.showTip">
-          <div>由此展开</div>
-          <img src="/util/expand_more.svg">
+  <div id="banner" class="fullscreen">
+    <div class="background" style="height: 0;">&nbsp;</div>
+    <div class="words" v-for="index in wordsNum" :class="index" :style="wordsStyle()">{{ pickItem() }}</div>
+    <h1 class="future" style="opacity: 0;">未来</h1>
+    <transition name="fade">
+      <div class="tip" v-if="showTip">
+        <div>由此展开</div>
+        <img src="/util/expand_more.svg">
+      </div>
+    </transition>
+  </div>
+  <div id="intro" class="fullscreen col">
+    <transition name="fade">
+      <div class="row" v-if="open[1]">
+        <div class="col transparent">
+          <img class="icon" src="/util/auto.svg">
+          <h2>自治自动</h2>
         </div>
-      </transition>
-    </div>
-    <div id="intro" class="fullscreen col">
-      <transition name="fade">
-        <div class="row" v-if="open[1]">
-          <div class="col transparent">
-            <img class="icon" src="/util/auto.svg">
-            <h2>自治自动</h2>
-          </div>
-          <div class="col transparent">
-            <img class="icon" src="/util/collaborate.svg">
-            <h2>团队合作</h2>
-          </div>
-          <div class="col transparent">
-            <img class="icon" src="/util/lightbulb.svg">
-            <h2>创意研发</h2>
-          </div>
+        <div class="col transparent">
+          <img class="icon" src="/util/collaborate.svg">
+          <h2>团队合作</h2>
         </div>
-      </transition>
-      <div class="center">
-        <img src="/ITI.svg">
-        <h2>学生自主的信息技术团队</h2>  
-      </div>
-      <transition name="fade">
-        <div class="row" v-if="open[1]">
-          <div class="col transparent">
-            <img class="icon" src="/util/code.svg">
-            <h2>工程维护</h2>
-          </div>
-          <div class="col transparent">
-            <img class="icon" src="/util/design.svg">
-            <h2>美工设计</h2>
-          </div>
-          <div class="col transparent">
-            <img class="icon" src="/util/educate.svg">
-            <h2>教育共享</h2>
-          </div>
+        <div class="col transparent">
+          <img class="icon" src="/util/lightbulb.svg">
+          <h2>创意研发</h2>
         </div>
-      </transition>
+      </div>
+    </transition>
+    <div class="center">
+      <img src="/ITI.svg">
+      <h2>学生自主的信息技术团队</h2>  
     </div>
-    <div id="yzzx" class="fullscreen col">
-      <img class="fullscreen background" src="/yzzx/shurentang.jpg">
-      <transition name="slide-fade">
-        <div class="row transparent" v-if="open[2]">
-          <img class="quote" src="/util/quote.svg">
-          <h1>人格健全 学术健全 <br> 自治自动 体育兼重</h1>
+    <transition name="fade">
+      <div class="row" v-if="open[1]">
+        <div class="col transparent">
+          <img class="icon" src="/util/code.svg">
+          <h2>工程维护</h2>
         </div>
-      </transition>
-      <div class="row title">
-        <img class="yzzxlogo" src="/yzzx/logo.png">
-        <img class="name" src="/yzzx/name.png">
+        <div class="col transparent">
+          <img class="icon" src="/util/design.svg">
+          <h2>美工设计</h2>
+        </div>
+        <div class="col transparent">
+          <img class="icon" src="/util/educate.svg">
+          <h2>教育共享</h2>
+        </div>
       </div>
-      <transition name="slide-fade">
-        <a href="http://61.155.62.52/yzzx" target="_blank" class="button" v-if="open[2]">了解更多</a>
-      </transition>
-    </div>
-    <div id="edu" class="row">
-      <img src="/util/edu.svg">
-      <div class="content col">
-        <h1>教育</h1>
-        <p><strong>ITI</strong>团队非常重视教育和学生个人能力的成长。在这里，不仅有团队内的软件开发技术培训，更有一年一度的著名信息技术普及教育课程<strong>信息学堂</strong>，帮助一届又一届的学生快速融入信息化的时代，广受学校和学生们的好评。新的一年信息学堂，期待你的到来！</p>
-        <a class="button" href="./xxxt.html">了解更多</a>
+    </transition>
+  </div>
+  <div id="yzzx" class="fullscreen col">
+    <img class="fullscreen background" src="/yzzx/shurentang.jpg">
+    <transition name="slide-fade">
+      <div class="row transparent" v-if="open[2]">
+        <img class="quote" src="/util/quote.svg">
+        <h1>人格健全 学术健全 <br> 自治自动 体育兼重</h1>
       </div>
+    </transition>
+    <div class="row title">
+      <img class="yzzxlogo" src="/yzzx/logo.png">
+      <img class="name" src="/yzzx/name.png">
     </div>
-    <div id="dev" class="row">
-      <div class="content col">
-        <h1>研发</h1>
-        <p><strong>ITI</strong>一直以来与多方合作从事软件研发工作，并长期帮助学校维护各种网络服务，为江苏省扬州中学的信息化发展做出了卓越贡献。丰富多彩的应用和网页从ITI团队中绽放而出，架起信息的桥梁，展开信息化校园的未来画卷。</p>
-        <a class="button" href="./project.html">了解更多</a>
-      </div>
-      <img src="/util/dev.svg">
+    <transition name="slide-fade">
+      <a href="http://61.155.62.52/yzzx" target="_blank" class="button" v-if="open[2]">了解更多</a>
+    </transition>
+  </div>
+  <div id="edu" class="row">
+    <img src="/util/edu.svg">
+    <div class="content col">
+      <h1>教育</h1>
+      <p><strong>ITI</strong>团队非常重视教育和学生个人能力的成长。在这里，不仅有团队内的软件开发技术培训，更有一年一度的著名信息技术普及教育课程<strong>信息学堂</strong>，帮助一届又一届的学生快速融入信息化的时代，广受学校和学生们的好评。新的一年信息学堂，期待你的到来！</p>
+      <a class="button" href="./xxxt.html">了解更多</a>
     </div>
-    
-    <div id="footer" class="row">
-      <div class="col">
-        <h1>ITI</h1>
-        <hr>
-        <p>ITI Website &copy; 2019 ITI</p>
-      </div>
-      <a class="button" href="./team.html">了解我们的团队</a>
+  </div>
+  <div id="dev" class="row">
+    <div class="content col">
+      <h1>研发</h1>
+      <p><strong>ITI</strong>一直以来与多方合作从事软件研发工作，并长期帮助学校维护各种网络服务，为江苏省扬州中学的信息化发展做出了卓越贡献。丰富多彩的应用和网页从ITI团队中绽放而出，架起信息的桥梁，展开信息化校园的未来画卷。</p>
+      <a class="button" href="./project.html">了解更多</a>
     </div>
+    <img src="/util/dev.svg">
+  </div>
+  
+  <div id="footer" class="row">
+    <div class="col">
+      <h1>ITI</h1>
+      <hr>
+      <p>ITI Website &copy; 2019 ITI</p>
+    </div>
+    <a class="button" href="./team.html">了解我们的团队</a>
   </div>
 </template>
 <script setup>
 import anime from 'animejs/lib/anime.es.js';
 import { onMounted } from 'vue'
 
-ref: banner = {
-  texts: ['信息', '发展', '潮流', '信心', '合作', '效率', '和谐', '交流', '学习', '进步', '科技', '前沿', '创新', '实践', '教育', '研发', '探索', '好奇', '严谨', '价值'],
-  bgHeight: 0,
-  showTip: false
-} 
+const texts = ['信息', '发展', '潮流', '信心', '合作', '效率', '和谐', '交流', '学习', '进步', '科技', '前沿', '创新', '实践', '教育', '研发', '探索', '好奇', '严谨', '价值']
+ref: showTip = false
 ref: open = []
+ref: section
 ref: item = null
 ref: wordsNum = Math.floor(window.innerHeight * window.innerWidth / 3e4)
-console.log(wordsNum)
 
+const pickItem = () => texts[Math.round(Math.random() * texts.length)]
 
-const pickItem = () => banner.texts[Math.round(Math.random() * banner.texts.length)]
+const wordsStyle = () => ({
+  left: (10 + Math.random()*80) + 'vw',
+  top: (10 + Math.random()*80) + 'vh'
+})
 
+const sleep = (time) => new Promise((resolve) => setTimeout(resolve, time))
 
-function wordsStyle () {
-  return {
-    left: Math.random()*100 + '%',
-    top: Math.random()*100 + '%'
+window.addEventListener('scroll', () => {
+  let y = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
+  let newSection = Math.round(y / window.innerHeight - 0.2)
+  if (section != newSection) {
+    const old = section
+    setTimeout(() => { if (section != old) open[old] = false }, 2000)
+    section = newSection
+    open[section] = true
   }
-}
+})
 
-function sleep(time) { // ms
-  return new Promise((resolve) => setTimeout(resolve, time))
-}
-async function start() {
-  await sleep(500)
-  banner.text = ''
-
+onMounted(() => {
   anime({
     targets: '.words',
     easing: 'easeOutExpo',
     duration: 5000,  
     keyframes: [
-      { opacity: 1, scale: 1.2 },
-      { scale: 1.5, opacity: 0 }
+      { opacity: 1, scale: 1.5 },
+      { scale: 2, opacity: 0 }
     ],
     delay: anime.stagger(2500/wordsNum)
   })
-  
-  await sleep(3000)
   anime({
-    targets: '#future',
-    duration: 2000,
+    targets: '#banner .future',
+    duration: 3000,
     opacity: 1,
-    scale: 1.7
+    scale: 1.7,
+    delay: 3000
   })
-  await sleep(4000)
-  banner.bgHeight = "100vh"
-  await sleep(1100)
-  banner.showTip = true
-
-}
-start()
+  anime({
+    targets: '#banner .background',
+    duration: 1000,
+    easing: 'easeInExpo',
+    height: '100%',
+    delay: 5000
+  }).finished.then(() => { showTip = true })
+})
 </script>
 
 <style scoped>
-div {
-  overflow-x: hidden;
-}
-
 .words {
-  width: 100px;
   position: absolute;
   color: #BDBDBD;
   opacity: 0;
@@ -167,6 +160,11 @@ div {
   color: white;
   text-align: center;
   background: rgb(50, 54, 57);
+  overflow: hidden;
+}
+
+#banner * {
+  cursor: default;
 }
 
 #banner div.background {
@@ -184,12 +182,12 @@ div {
   line-height: 100vh;
   margin: 0;
   padding: 0;
-  font-size: 7rem;
+  font-size: 6rem;
 }
 
 #banner div.tip {
   position: absolute;
-  z-index: 2;
+  z-index: 200;
   font-size: 1.5rem;
   bottom: 10px;
   width: 100%;
@@ -213,7 +211,7 @@ div {
 
 @media (max-width: 500px) {
   #banner h1 {
-    font-size: 8rem;
+    font-size: 4rem;
   }
 }
 
@@ -221,6 +219,10 @@ div {
   background-color: rgb(50, 54, 57);
   color: white;
   justify-content: space-around;
+}
+
+#intro * {
+  cursor: default;
 }
 
 #intro img {
@@ -301,7 +303,7 @@ div {
 }
 
 @media (max-width: 500px) {
-  #yzzx img.logo {
+  #yzzx img.yzzxlogo {
     width: 60%;
   }
 
@@ -405,10 +407,5 @@ div {
     width: 80%;
     align-items: center;
   }
-}
-
-
-#app {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
 }
 </style>
