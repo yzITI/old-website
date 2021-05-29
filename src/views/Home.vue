@@ -69,7 +69,7 @@
     <div class="content col">
       <h1>教育</h1>
       <p><strong>ITI</strong>团队非常重视教育和学生个人能力的成长。在这里，不仅有团队内的软件开发技术培训，更有一年一度的著名信息技术普及教育课程<strong>信息学堂</strong>，帮助一届又一届的学生快速融入信息化的时代，广受学校和学生们的好评。新的一年信息学堂，期待你的到来！</p>
-      <a class="button" href="./xxxt.html">了解更多</a>
+      <a class="button" @click="router.push('/xxxt')">了解更多</a>
     </div>
   </div>
   <div id="dev" class="row">
@@ -87,12 +87,14 @@
       <hr>
       <p>ITI Website &copy; 2019 ITI</p>
     </div>
-    <a class="button" href="./team.html">了解我们的团队</a>
+    <a class="button" @click="router.push('/team')">了解我们的团队</a>
   </div>
 </template>
 <script setup>
 import anime from 'animejs/lib/anime.es.js';
 import { onMounted } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
+const router = useRouter(), route = useRoute()
 
 const texts = ['信息', '发展', '潮流', '信心', '合作', '效率', '和谐', '交流', '学习', '进步', '科技', '前沿', '创新', '实践', '教育', '研发', '探索', '好奇', '严谨', '价值']
 ref: showTip = false
