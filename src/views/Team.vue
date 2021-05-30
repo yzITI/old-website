@@ -5,7 +5,7 @@
     </div>
     <div id="grid" class="row" v-for="i in index">
       <div class="card" v-for="j in length" >
-        <div class="row" v-if="profiles[(i - 1) * length + (j - 1)] != undefined">
+        <div class="row" style="max-width: 380px" v-if="profiles[(i - 1) * length + (j - 1)] != undefined">
           <h1 v-if="profiles[(i - 1) * length + (j - 1)].nickName">{{ profiles[(i - 1) * length + (j - 1)].nickName }} ·&nbsp</h1>
           <h1>{{ profiles[(i - 1) * length + (j - 1)].name }}</h1>
         </div>
@@ -20,7 +20,7 @@
 <script setup>
 import { useRouter, useRoute } from 'vue-router'
 const router = useRouter(), route = useRoute()
-ref: length = Math.floor(window.innerWidth / 300)
+ref: length = Math.floor(window.innerWidth / 380)
 ref: profiles = [{
       name: '李世衡',
       nickName: 'Phantomlsh',
