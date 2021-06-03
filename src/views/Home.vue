@@ -76,7 +76,7 @@
     <div class="content col">
       <h1>研发</h1>
       <p><strong>ITI</strong>一直以来与多方合作从事软件研发工作，并长期帮助学校维护各种网络服务，为江苏省扬州中学的信息化发展做出了卓越贡献。丰富多彩的应用和网页从ITI团队中绽放而出，架起信息的桥梁，展开信息化校园的未来画卷。</p>
-      <a class="button" href="./project.html">了解更多</a>
+      <a class="button" @click="router.push('/project')">了解更多</a>
     </div>
     <img src="/util/dev.svg">
   </div>
