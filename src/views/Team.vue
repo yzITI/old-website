@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" style="width: 100%;">
     <div class="banner">
       <img src="/ITI.svg" @click="router.push('/')">
     </div>
@@ -32,6 +32,12 @@ ref: profiles = [{
       nickName: 'Cmdblock',
       tags: ['AD', 'BE', 'FE'],
       github: 'https://github.com/CmdBlock-zqg'
+    },
+    {
+      name: '宦皓然',
+      nickName: 'yzhhr',
+      tags: ['AD', 'ED'],
+      github: 'https://github.com/yzhhr'
     },
     {
       name: '丁浩然',
@@ -136,7 +142,7 @@ div.tag {
 @media (max-width: 900px) {
   #grid {
     display: block;
-    margin: 20px;
+    margin-top: 20px;
   }
   .card {
     width: 100%;
